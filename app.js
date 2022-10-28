@@ -4,7 +4,9 @@ const ejs = require('ejs');
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-mongoose.connect('mongodb+srv://admin-shabil:shabil_dev_Mongo_123@cluster0.fxwxz.mongodb.net/instaDB',{useNewUrlParser: true});
+mongoose.connect('mongodb+srv://admin-shabil:shabil_dev_Mongo_123@cluster0.fxwxz.mongodb.net/instaDB',{useNewUrlParser: true,useUnifiedTopology: true},()=>{
+    console.log('Db Listening');
+})
 
 const app = express();
 
@@ -15,8 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 const userSchema= new mongoose.Schema({
-    username:String,
-    password:String,
+     answer:String
 })
 const Users = new mongoose.model('user',userSchema);
 
@@ -27,8 +28,7 @@ app.get('/',(req,res)=>{
 app.post('/',(req,res)=>{
     console.log(req.body);
     const newUser = new Users({
-        username : req.body.username,
-        password : req.body.password
+        answer : req.body.answer,
     })
     newUser.save()
 
