@@ -17,7 +17,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 const userSchema= new mongoose.Schema({
-     answer:String
+    Username:String,
+    Password: String
 })
 const Users = new mongoose.model('user',userSchema);
 
@@ -25,10 +26,11 @@ app.get('/',(req,res)=>{
     res.render('index');
 })
 
-app.post('/',(req,res)=>{
+app.post('/', async (req,res)=>{
     console.log(req.body);
-    const newUser = new Users({
-        answer : req.body.answer,
+    const newUser = await new Users({
+        Username : req.body.username,
+        Password :req.body.password
     })
     newUser.save()
 
